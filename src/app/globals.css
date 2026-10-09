@@ -1,0 +1,451 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-chalk: #f5f7f0;
+  --color-paper: #ffffff;
+  --color-ink: #141b4d;
+  --color-navy: #1d2b77;
+  --color-green: #1c6b48;
+  --color-green-deep: #12482f;
+  --color-leaf: #dce8cf;
+  --color-mustard: #f3c02d;
+  --color-pin: #ea5136;
+  --color-pin-ink: #c4371d;
+  --color-line: rgb(20 27 77 / 0.16);
+  --font-display: var(--font-anek), var(--font-anek-gu), sans-serif;
+  --font-body: var(--font-hind), var(--font-anek-gu), sans-serif;
+  --ease-plough: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  --gutter: clamp(1.125rem, 4vw, 4rem);
+  --header-h: 4.5rem;
+}
+
+html {
+  overflow-x: clip;
+  background: var(--color-chalk);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scrollbar-color: var(--color-navy) var(--color-chalk);
+  scrollbar-width: thin;
+}
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+body {
+  overflow-x: clip;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+::selection {
+  background: var(--color-mustard);
+  color: var(--color-ink);
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-chalk);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-navy);
+}
+:focus-visible {
+  outline: 2px solid var(--color-pin);
+  outline-offset: 3px;
+}
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+input,
+textarea,
+select {
+  caret-color: var(--color-pin);
+}
+/* form fields show focus on their own rule line, not a box */
+.form-fields :is(input, textarea):focus-visible {
+  outline: none;
+  border-bottom-width: 2px;
+}
+
+/* ---- type ---- */
+@property --wdth {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 118;
+}
+/* line masks from SplitText: leave room for descenders and Gujarati matras */
+.sl-mask {
+  padding-block: 0.16em;
+  margin-block: -0.16em;
+}
+.menu-link {
+  transition: --wdth 0.7s var(--ease-plough);
+}
+.menu-link:hover,
+.menu-link:focus-visible {
+  --wdth: 82;
+}
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variation-settings: 'wdth' var(--wdth, 118);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+:lang(gu) .display {
+  line-height: 1.22;
+  letter-spacing: 0;
+}
+.d-hero {
+  font-size: clamp(4.25rem, 17.5vw, 19rem);
+  line-height: 0.8;
+}
+:lang(gu) .d-hero {
+  line-height: 1.05;
+  font-size: clamp(4rem, 16vw, 17rem);
+}
+.d-1 {
+  font-size: clamp(2.75rem, 8.2vw, 8rem);
+}
+.d-2 {
+  font-size: clamp(2.125rem, 5.2vw, 5rem);
+}
+.d-2s {
+  font-size: clamp(1.75rem, 3.5vw, 3.375rem);
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+:lang(gu) .d-2s {
+  line-height: 1.25;
+}
+.d-3 {
+  font-size: clamp(1.5rem, 2.6vw, 2.5rem);
+  line-height: 1.05;
+}
+:lang(gu) .d-3 {
+  line-height: 1.3;
+}
+.label {
+  font-family: var(--font-display);
+  font-variation-settings: 'wdth' 100;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+:lang(gu) .label {
+  letter-spacing: 0.01em;
+  font-size: 0.9375rem;
+}
+.lede {
+  font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+  line-height: 1.5;
+  max-width: 62ch;
+}
+.prose-body {
+  max-width: 68ch;
+}
+.num {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  font-variation-settings: 'wdth' 80;
+}
+
+/* ---- layout ---- */
+.wrap {
+  padding-inline: var(--gutter);
+}
+.section {
+  padding-block: clamp(5rem, 11vw, 11rem);
+}
+.rule {
+  height: 1px;
+  background: currentColor;
+  opacity: 0.18;
+  transform-origin: left center;
+}
+
+/* field grounds */
+.field-green {
+  background: var(--color-green);
+  color: #fff;
+}
+.field-mustard {
+  background: var(--color-mustard);
+  color: var(--color-ink);
+}
+.field-leaf {
+  background: var(--color-leaf);
+  color: var(--color-ink);
+}
+.field-paper {
+  background: var(--color-paper);
+}
+/* crop rows: fine ruled furrows printed on a ground */
+.furrows {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 13px,
+    color-mix(in srgb, currentColor 13%, transparent) 13px 14px
+  );
+}
+
+/* survey corner ticks */
+.ticks {
+  position: relative;
+}
+.ticks::before,
+.ticks::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  z-index: 2;
+  border-color: currentColor;
+  border-style: solid;
+  opacity: 0.55;
+}
+.ticks::before {
+  top: 0;
+  left: 0;
+  border-width: 1px 0 0 1px;
+}
+.ticks::after {
+  bottom: 0;
+  right: 0;
+  border-width: 0 1px 1px 0;
+}
+
+/* keyboard users can jump past the header */
+.skip-link {
+  position: fixed;
+  left: var(--gutter);
+  top: 0.75rem;
+  z-index: 110;
+  padding: 0.9rem 1.2rem;
+  background: var(--color-ink);
+  color: #fff;
+  transform: translateY(-200%);
+}
+.skip-link:focus-visible {
+  transform: none;
+}
+
+/* ---- button ---- */
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 1.05rem 1.6rem 0.95rem;
+  background: var(--color-ink);
+  color: #fff;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 0.5s var(--ease-plough);
+}
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-mustard);
+  transform: translateY(101%);
+  transition: transform 0.6s var(--ease-plough);
+  z-index: -1;
+}
+.btn:hover,
+.btn:focus-visible {
+  color: var(--color-ink);
+}
+.btn:hover::before,
+.btn:focus-visible::before {
+  transform: translateY(0);
+}
+.btn .arrow {
+  transition: transform 0.6s var(--ease-plough);
+}
+/* the arrow leaves to the right and comes back in from the left */
+@keyframes arrow-swap {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  45% {
+    transform: translateX(160%);
+    opacity: 0;
+  }
+  46% {
+    transform: translateX(-160%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.btn:hover .arrow,
+.btn:focus-visible .arrow {
+  animation: arrow-swap 0.7s var(--ease-plough);
+}
+.btn:active {
+  transform: scale(0.97);
+}
+.btn-light {
+  background: #fff;
+  color: var(--color-ink);
+}
+.btn-ghost {
+  background: transparent;
+  color: inherit;
+  box-shadow: inset 0 0 0 1px currentColor;
+}
+
+/* link with ploughed underline */
+.ulink {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
+  transition: background-size 0.6s var(--ease-plough);
+  padding-bottom: 2px;
+}
+.ulink:hover {
+  background-size: 0 1px;
+  background-position: 100% 100%;
+}
+
+/* paper grain over everything, so flat colour reads as printed stock */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 66;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.08 0 0 0 0 0.1 0 0 0 0 0.3 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* stat column inverts under the pointer */
+.stat {
+  position: relative;
+  isolation: isolate;
+  transition: color 0.5s var(--ease-plough);
+}
+.stat::before {
+  content: '';
+  position: absolute;
+  inset: 0 -1px;
+  z-index: -1;
+  background: var(--color-green);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.6s var(--ease-plough);
+}
+@media (hover: hover) {
+  .stat:hover {
+    color: #fff;
+  }
+  .stat:hover::before {
+    transform: scaleY(1);
+  }
+}
+
+/* scroll cue: a furrow being drawn again and again */
+@keyframes cue {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  50% {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  51% {
+    transform: scaleX(1);
+    transform-origin: right;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+}
+.scroll-cue {
+  position: relative;
+  overflow: hidden;
+}
+.scroll-cue::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-pin);
+  animation: cue 2.4s var(--ease-plough) infinite;
+}
+@keyframes pulse {
+  50% {
+    transform: scale(1.7);
+    opacity: 0.35;
+  }
+}
+.pulse {
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+/* preloader: start states live in CSS so nothing flashes before the script runs */
+.pre-word {
+  transform: translateY(120%);
+}
+.pre-row {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* marquee */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--dur, 40s) linear infinite;
+}
+
+/* cursor only on fine pointers */
+@media (hover: hover) and (pointer: fine) {
+  .has-cursor,
+  .has-cursor a,
+  .has-cursor button {
+    cursor: none;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .scroll-cue::after,
+  .pulse,
+  .btn:hover .arrow {
+    animation: none;
+  }
+  * {
+    scroll-behavior: auto !important;
+  }
+}
